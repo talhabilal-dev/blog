@@ -9,7 +9,11 @@ import {
   Search,
   Twitter,
 } from "lucide-react";
-import {   SignInButton,} from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedOut,
+} from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -21,9 +25,12 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import RedirectOnSignIn from "@/components/RedirectOnSignIn";
 
 
 export default function LandingPage() {
+
+  
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -66,15 +73,26 @@ export default function LandingPage() {
                 placeholder="Search articles..."
                 className="w-[200px] pl-8 bg-background"
               />
-
             </form>
-           
-
-            <Button variant="outline" className="hidden md:flex cursor-pointer" asChild>
-            <SignInButton  />
-            </Button>
-           
+            <SignedOut>
+              <Button
+                variant="outline"
+                className="hidden md:flex cursor-pointer"
+                asChild
+              >
+                <SignInButton />
+              </Button>
+              <Button
+                variant="outline"
+                className="hidden md:flex cursor-pointer"
+                asChild
+              >
+                <SignUpButton />
+              </Button>
+            </SignedOut>
             
+            <RedirectOnSignIn />
+          
           </div>
         </div>
       </header>
@@ -100,7 +118,10 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button size="lg" className="gap-1.5 cursor-pointer shadow-lg">
+                  <Button
+                    size="lg"
+                    className="gap-1.5 cursor-pointer shadow-lg"
+                  >
                     Start Reading
                     <ArrowRight className="h-4 w-4" />
                   </Button>
